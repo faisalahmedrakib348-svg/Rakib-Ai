@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rakib AI</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#202123;font-family:Arial,sans-serif;height:100vh;display:flex;flex-direction:column}
+header{height:58px;border-bottom:1px solid #e5e5e5;display:flex;align-items:center;padding:0 18px;font-weight:700;font-size:20px}
+.logo{display:flex;align-items:center;gap:9px}.dot{width:30px;height:30px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-size:15px}
+main{flex:1;display:flex;flex-direction:column;max-width:900px;width:100%;margin:auto;padding:20px}
+.welcome{flex:1;display:grid;place-items:center;text-align:center}.welcome h1{font-size:30px;margin:0 0 8px}.welcome p{color:#666}
+.chat{display:none;flex:1;overflow:auto;padding:10px 0}.msg{padding:14px 0;line-height:1.55}.user{font-weight:700}.assistant{background:#f7f7f8;border-radius:12px;padding:14px}
+form{display:flex;gap:8px;border:1px solid #d9d9e3;border-radius:18px;padding:8px;margin-top:12px;box-shadow:0 2px 8px #00000010}
+textarea{border:0;outline:0;resize:none;flex:1;font-size:16px;padding:8px;min-height:42px;font-family:inherit}
+button{border:0;border-radius:12px;background:#111;color:#fff;padding:0 18px;font-size:15px;cursor:pointer}
+.note{text-align:center;color:#888;font-size:11px;margin-top:8px}
+</style>
+</head>
+<body>
+<header><div class="logo"><div class="dot">R</div> Rakib AI</div></header>
+<main>
+<section class="welcome" id="welcome"><div><h1>কীভাবে সাহায্য করতে পারি?</h1><p>Rakib AI — তোমার ব্যক্তিগত AI assistant</p></div></section>
+<section class="chat" id="chat"></section>
+<form id="form">
+<textarea id="input" placeholder="Rakib AI-কে কিছু জিজ্ঞেস করো..." rows="1"></textarea>
+<button type="submit">Send</button>
+</form>
+<div class="note">Prototype — এখনো AI API-এর সাথে যুক্ত করা হয়নি</div>
+</main>
+<script>
+const form=document.getElementById('form'),input=document.getElementById('input'),chat=document.getElementById('chat'),welcome=document.getElementById('welcome');
+form.addEventListener('submit',e=>{
+ e.preventDefault(); const text=input.value.trim(); if(!text)return;
+ welcome.style.display='none'; chat.style.display='block';
+ chat.innerHTML+=`<div class="msg"><div class="user">তুমি</div>${escapeHtml(text)}</div>`;
+ chat.innerHTML+=`<div class="msg assistant"><b>Rakib AI</b><br>আমি এখনো AI API-এর সাথে সংযুক্ত নই। পরের ধাপে আমাকে আসল AI-এর সাথে যুক্ত করা যাবে। 🤖</div>`;
+ input.value=''; chat.scrollTop=chat.scrollHeight;
+});
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+</script>
+</body>
+</html>
